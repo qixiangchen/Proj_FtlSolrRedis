@@ -1,8 +1,23 @@
 package com.test.service;
 
-import com.baomidou.mybatisplus.service.IService;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.github.pagehelper.PageInfo;
+import com.test.bean.M2SInfo;
 import com.test.bean.MenuInfo;
+import com.test.bean.StaffInfo;
 
-public interface IMenuService extends IService<MenuInfo>{
-
+public interface IMenuService {
+	public List<MenuInfo> findMenu(String name);
+	public List<StaffInfo> findStaff();
+	public MenuInfo saveMenu(MenuInfo mi);
+	public void updateMenu(MenuInfo mi);
+	public void deleteMenu(Integer mid);
+	public void saveM2S(M2SInfo m2s);
+	public void deleteM2S(Integer mid);
+	public List<MenuInfo> findMenu2(String name);
+	public MenuInfo getMenuById(Integer mid);
+	public PageInfo getPageMenu(String name,Integer page,Integer rows);
 }

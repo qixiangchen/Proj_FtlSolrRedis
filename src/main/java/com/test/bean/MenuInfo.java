@@ -1,24 +1,14 @@
 package com.test.bean;
 
 import java.io.Serializable;
-import java.sql.Date;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
-
-@TableName("t_menu")
 public class MenuInfo implements Serializable{
-	@TableId(type=IdType.AUTO)
 	private Integer id = null;
 	private String name = null;
-	private Date dt = null;
-	private Float price = null;
-	@TableField(exist=false)
-	private String tid = null;
-	@TableField(exist=false)
-	private String tname = null;
+	private Integer price = null;
+	
+	private String sname = null;
+	private String sid = null;
 	
 	public Integer getId() {
 		return id;
@@ -32,29 +22,23 @@ public class MenuInfo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getDt() {
-		return dt;
-	}
-	public void setDt(Date dt) {
-		this.dt = dt;
-	}
-	public Float getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(Float price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	public String getTid() {
-		return tid;
+	public String getSname() {
+		return sname;
 	}
-	public void setTid(String tid) {
-		this.tid = tid;
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
-	public String getTname() {
-		return tname;
+	public String getSid() {
+		return sid;
 	}
-	public void setTname(String tname) {
-		this.tname = tname;
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
 
 }

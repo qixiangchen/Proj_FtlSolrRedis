@@ -1,0 +1,7 @@
+com\test\service\IMenuService.class
+com\test\bean\M2SInfo.class
+com\test\service\impl\MenuServiceImpl.class
+com\test\Starter.class
+com\test\bean\StaffInfo.class
+com\test\mapper\MenuMapper.class
+com\test\bean\MenuInfo.class

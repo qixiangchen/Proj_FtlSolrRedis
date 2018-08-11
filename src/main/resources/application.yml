@@ -1,15 +1,26 @@
-#SpringBoot启动端口和项目路径
 server:
-  port: 8080
+  port: 9090
   context-path: /
-  
-#SpringMVC中JSP视图配置
+
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
-           
+
+  #Dubbo 1.0.1集成
+  dubbo:
+    appname: dubbo-service
+    registry: zookeeper://192.168.137.1:2181
+    protocol: dubbo
+    port: 20880
+
+#Dubbo 2.1.0集成
+#  dubbo:
+#    application:
+#      name: dubbo-service
+#    registry:
+#      address: zookeeper://192.168.137.1:2181
+#    protocol:
+#      name: dubbo
+#      port: 20880
+      
 #数据源配置      
   datasource:
     name: w1
@@ -22,52 +33,7 @@ spring:
     initialSize: 1
     maxWait: 60000
     minIdle: 1
-
-#Http编码配置    
-  http:
-    encoding:
-      force: true
-      charset: UTF-8
-      enabled: true
-      
-#Rabbitmq消息服务器配置      
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
-    
-# Redis数据库索引（默认为0）
-  redis:
-    database: 0
-    host: 192.168.25.100
-    port: 6379
-    password: redis
-    pool.max-active: 8
-    pool.max-wait: -1
-    pool.max-idle: 8
-    pool.min-idle: 0
-    timeout: 0
-
-#Solr配置    
-  data:
-    solr:
-      host: http://localhost:8984/solr/new_core
     
 #Mybatis实体类配置    
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-
-  
-#pagehelper分页插件
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-
-
-#日志配置
-logging:
-  file: d:/springboot.log
-  level:   
-    com.gufang.oa.mapper: DEBUG
