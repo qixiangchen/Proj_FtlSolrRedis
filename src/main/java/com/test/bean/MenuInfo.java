@@ -1,16 +1,27 @@
 package com.test.bean;
 
 import java.io.Serializable;
+import java.sql.Date;
+
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
 //菜单表实体类
+@TableName("t_menu")
 public class MenuInfo implements Serializable{
+	//定义主键策略
+	@TableId(type=IdType.AUTO)
 	private Integer id = null;
 	private String name = null;
-	private Integer price = null;
-	//冗余字段，存放材料名称，以逗号分隔
-	private String sname = null;
-	//冗余字段，存放材料ID，以逗号分隔
-	private String sid = null;
+	private Date dt = null;
+	private Float price = null;
+	//定义非数据库字段，默认exist=true，代表是数据库字段
+	@TableField(exist=false)
+	private String tid = null;
+	@TableField(exist=false)
+	private String tname = null;
 	
 	public Integer getId() {
 		return id;
@@ -24,23 +35,29 @@ public class MenuInfo implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getPrice() {
+	public Date getDt() {
+		return dt;
+	}
+	public void setDt(Date dt) {
+		this.dt = dt;
+	}
+	public Float getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(Float price) {
 		this.price = price;
 	}
-	public String getSname() {
-		return sname;
+	public String getTid() {
+		return tid;
 	}
-	public void setSname(String sname) {
-		this.sname = sname;
+	public void setTid(String tid) {
+		this.tid = tid;
 	}
-	public String getSid() {
-		return sid;
+	public String getTname() {
+		return tname;
 	}
-	public void setSid(String sid) {
-		this.sid = sid;
+	public void setTname(String tname) {
+		this.tname = tname;
 	}
 
 }

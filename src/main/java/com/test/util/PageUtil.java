@@ -1,28 +1,43 @@
 package com.test.util;
 
+/**
+* 处理分页的工具类
+ * 每翻页都请求后台加载分页数据
+ */
 public class PageUtil {
 	private Integer page = 1;//默认显示第一页
 	private Integer rows = 4;//每页显示记录数
-	private Long total = null;//总行数
+	private Integer total = null;//总行数
 	private String url = null;//点击页码跳转url
+
+	/**
+	 * 分页工具类构造方法
+	 * @param url  分页对应的URL，可以包含查询参数
+	 * @param page 当前页码
+	 * @param rows 每页显示的记录数
+	 * @param total 数据库表总行数
+	 */
 	
-	public PageUtil(String url,Integer page,Integer rows,Long total)
+	public PageUtil(String url,Integer page,Integer rows,Integer total)
 	{
 		this.url = url;
 		this.page = page;
 		this.rows = rows;
 		this.total = total;
 	}
-	
+
+	/**
+	* 生成静态HTML分页代码片段，通过EL语言加载到JSP页面中
+	 */
 	public String toHtml()
 	{
 		StringBuffer sb = new StringBuffer();
 		//计算总页数
 		int pages = 0;
 		if(total % rows == 0)
-			pages = total.intValue() / rows;
+			pages = total / rows;
 		else
-			pages = (total.intValue() / rows) + 1;
+			pages = (total / rows) + 1;
 		sb.append("<div id='pagediv'>\r\n");
 		String firstUrl = null;
 		if(url.indexOf("?")>0)
