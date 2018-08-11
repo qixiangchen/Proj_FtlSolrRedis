@@ -2,8 +2,6 @@ package com.test.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.github.pagehelper.PageInfo;
 import com.test.bean.M2SInfo;
 import com.test.bean.MenuInfo;
