@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.MenuMapper">
+	<select id="findMenu" resultType="com.test.bean.MenuInfo">
+		select * from t_menu where name like '%${name}%'
+	</select>
+	<select id="findStaff" resultType="com.test.bean.StaffInfo">
+		select * from t_staff
+	</select>
+	<insert id="saveMenu" parameterType="com.test.bean.MenuInfo"
+		useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into t_menu(name,price) values(#{name},#{price})
+	</insert>
+	<update id="updateMenu" parameterType="com.test.bean.MenuInfo">
+		update t_menu set name=#{name},price=#{price} where id=#{id}
+	</update>
+	<delete id="deleteMenu" parameterType="Integer">
+		delete from t_menu where id=#{id}
+	</delete>
+	<insert id="saveM2S" parameterType="com.test.bean.M2SInfo">
+		insert into t_m2s(mid,sid) values(#{mid},#{sid})
+	</insert>
+	<delete id="deleteM2S" parameterType="Integer">
+		delete from t_m2s where mid=#{id}
+	</delete>
+	
+	
+	<select id="findMenu2" resultType="com.test.bean.MenuInfo">
+		select a.*,b.sname,b.sid from t_menu a left join
+		(select group_concat(s.name) sname,group_concat(s.id) sid,m2s.mid from t_staff s,t_m2s m2s where s.id=m2s.sid group by m2s.mid) b
+		on a.id=b.mid where a.name like '%${name}%' or b.sname like '%${name}%'
+	</select>
+	<select id="getMenuById" resultType="com.test.bean.MenuInfo">
+		select a.*,b.sname,b.sid from t_menu a left join
+		(select group_concat(s.name) sname,group_concat(s.id) sid,m2s.mid from t_staff s,t_m2s m2s where s.id=m2s.sid group by m2s.mid) b
+		on a.id=b.mid where a.id=#{id}
+	</select>
+</mapper>

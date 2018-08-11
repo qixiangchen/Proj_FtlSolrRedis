@@ -9,6 +9,7 @@ import com.test.util.RabbitmqConf;
 
 @Component
 public class SendMsg {
+	//注入消息模板
 	@Autowired
 	private AmqpTemplate amqp;
 	

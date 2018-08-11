@@ -1,0 +1,32 @@
+create table t_menu(id int auto_increment primary key,
+	name varchar(40),
+	price int);
+	
+create table t_staff(id int auto_increment primary key,
+	name varchar(40));
+
+create table t_m2s(mid int,sid int);
+
+insert into t_staff(name) values('鸡肉');
+insert into t_staff(name) values('花生米');
+insert into t_staff(name) values('猪肉');
+insert into t_staff(name) values('木耳');
+
+insert into t_menu(name,price) value('宫保鸡丁',18);
+insert into t_menu(name,price) value('土豆丝',20);
+
+insert into t_m2s (mid,sid) values (1,1);
+insert into t_m2s (mid,sid) values (1,4);
+
+insert into t_m2s (mid,sid) values (2,2);
+insert into t_m2s (mid,sid) values (2,3);
+
+关联中间表与材料表，获取材料名称，材料ID和菜单ID
+
+select s.name,s.id,m2s.mid from t_staff s,t_m2s m2s where s.id=m2s.sid
+
+select group_concat(s.name) sname,group_concat(s.id) sid,m2s.mid from t_staff s,t_m2s m2s where s.id=m2s.sid group by m2s.mid
+
+select a.*,b.sname,b.sid from t_menu a left join
+(select group_concat(s.name) sname,group_concat(s.id) sid,m2s.mid from t_staff s,t_m2s m2s where s.id=m2s.sid group by m2s.mid) b
+on a.id=b.mid;

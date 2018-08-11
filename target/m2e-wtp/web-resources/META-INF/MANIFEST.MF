@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Implementation-Title: Test_DubboWeb Maven Webapp
+Implementation-Title: Proj_SpringRabbitmq Maven Webapp
 Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: java
 Implementation-Vendor-Id: com.test

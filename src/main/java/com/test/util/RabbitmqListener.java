@@ -3,39 +3,26 @@ package com.test.util;
 import java.io.ByteArrayInputStream;
 import java.io.ObjectInputStream;
 
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.rabbitmq.client.ConnectionFactory;
 import com.test.bean.M2SInfo;
 import com.test.bean.MenuInfo;
 import com.test.service.IMenuService;
 
 @Component
-public class CrontabGetMsg {
-	@Autowired
-	private AmqpTemplate amqp;
+public class RabbitmqListener {
 	@Autowired
 	private IMenuService serv;
 	
-	//秒 分 时 日 月 周 年
-	//每五秒接收一次消息
-	@Scheduled(cron="0/5 * * ? * *")
-	public void getMsg()
+	@RabbitListener(queues="test_queue1")
+	public void receive(Message msg)
 	{
-		//System.out.println("getMsg() "+new java.sql.Timestamp(System.currentTimeMillis()));
 		try
 		{
-			//每次接收一个消息
-			Message msg = amqp.receive(RabbitmqConf.QUEUE1);
-			//如果消息为空，返回
-			if(msg == null)
-				return;
 			byte[] data = msg.getBody();
-			//反序列化消息为对象
 			Object obj = toObject(data);
 			if(obj instanceof MenuInfo)
 			{
@@ -85,5 +72,4 @@ public class CrontabGetMsg {
 		}
 		return null;
 	}
-	
 }

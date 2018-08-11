@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.test.bean.MenuInfo;
@@ -19,16 +17,10 @@ import com.test.util.PageUtil;
 
 @Controller
 public class MenuCtrl {
-	@Reference(check=false)
+	@Autowired
 	private IMenuService serv;
 	@Autowired
 	private SendMsg sendmsg;
-	
-	@RequestMapping("/test")
-	public String test(HttpServletRequest req,Integer page,Integer rows)
-	{
-		return "add";
-	}
 
 	//跳转菜单列表的方法
 	//接收前台参数page,rows
@@ -41,19 +33,6 @@ public class MenuCtrl {
 			rows = 4;
 		String name = req.getParameter("name");
 		return toListPage(req,page,rows,name);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/list2")
-	public List<MenuInfo> list2(HttpServletRequest req,Integer page,Integer rows)
-	{
-		if(page == null)
-			page = 1;
-		if(rows == null)
-			rows = 4;
-		PageInfo pi = serv.getPageMenu("", page, rows);
-		List<MenuInfo> menuList2 = pi.getList();//当前页显示记录集合
-		return menuList2;
 	}
 	
 	//删除方法，通过id删除菜单和中间表
@@ -149,7 +128,10 @@ public class MenuCtrl {
 			name = "";
 		
 		System.out.println("page===="+page+",rows==="+rows+",name="+name);
-		PageInfo pi = serv.getPageMenu(name, page, rows);
+		PageHelper.startPage(page, rows);
+		List<MenuInfo> menuList = serv.findMenu2(name);
+		System.out.println("menuList===="+menuList.size());
+		PageInfo pi = new PageInfo(menuList);
 		List<MenuInfo> menuList2 = pi.getList();//当前页显示记录集合
 		Long total = pi.getTotal();//数据库表全部记录数
 		req.setAttribute("menuList", menuList2);
